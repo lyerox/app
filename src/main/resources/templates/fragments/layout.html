@@ -1,0 +1,19 @@
+<th:block th:fragment="common_content(content)" xmlns:th="http://www.thymeleaf.org">
+
+    <!--left navibar-->
+    <th:block th:replace="fragments/navigation"/>
+
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <!--right navibar-->
+            <th:block th:insert="fragments/rightNotify"/>
+        </div>
+        <div class="row J_mainContent" id="content-main">
+            <!-- content -->
+            <th:block th:replace="${content}"/>
+        </div>
+    </div>
+
+</th:block>
+
+

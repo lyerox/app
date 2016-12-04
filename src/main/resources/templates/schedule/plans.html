@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common_header(~{::title}, ~{::link})">
+    <title> 预约列表</title>
+    <!--<small >预约编号</small>-->
+    <link href="../../static/css/style.css" th:href="@{/css/style.css}"  rel="stylesheet">
+</head>
+
+<body class="fixed-sidebar gray-bg" >
+
+<th:block th:replace="fragments/layout :: common_content(~{::content})">
+    <content>
+        <div class="gray-bg">
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h5>预约列表</h5>
+                                <div class="ibox-tools">
+                                    <a th:href="@{/plan/new}" class="btn btn-primary btn-xs">申请预约</a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row m-b-sm m-t-sm">
+                                    <div class="col-md-1">
+                                        <button type="button" id="loading-example-btn" class="btn btn-white btn-sm">
+                                            <i class="fa fa-refresh"></i>Refresh
+                                        </button>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="input plan series number" class="input-sm form-control">
+                                            <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-sm btn-primary">Search</button>
+                                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="plan-list">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                        <tr th:each="plan : ${plans}">
+                                            <td class="plan-titles">
+                                                <a th:href="@{'/plan/' + ${plan.id}}" th:text="${plan.number}">plan number</a>
+                                                <!--<small >预约编号</small>-->
+                                            </td>
+                                            <td class="plan-status">
+                                                <span class="label" th:classappend="${plan.status.id != 1}? 'label-primary' : 'label-danger'"
+                                                      th:text="${plan.status}">Status</span>
+                                            </td>
+                                            <td class="plan-titles">
+                                                <a href="vehicle.html" th:text="${plan.vehicle}">vehicle number</a>
+                                                <br/>
+                                                <!--<small th:text="'plans id: '+ ${plan.id}">Plan Id</small>-->
+                                            </td>
+                                            <td class="plan-completion">
+                                                <small>当前进度： 48%</small>
+                                                <div class="progress progress-mini">
+                                                    <div style="width: 48%;" class="progress-bar"></div>
+                                                </div>
+                                            </td>
+                                            <td class="plan-cargo">
+                                                <a th:each="location : ${plan.locations}" th:href="@{'/location/' + ${location.id}}">
+                                                    <!--<img alt="image" class="img-circle" src="img/a2.jpg"></a>-->
+                                                <button class="btn btn-primary" type="button" th:text="${location.id}"></button>
+                                                </a>
+                                                <small th:text="货位"></small>
+
+                                            </td>
+                                            <td class="plan-actions">
+                                                <a th:href="@{'/plan/' + ${plan.id}}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> Show </a>
+                                                <form action="#" th:action="@{'/plan/' + ${plan.id}}" th:method="delete" >
+                                                    <input type="hidden" name="_method" value="delete" />
+                                                    <button type="submit" id="submitButton" class="btn btn-white btn-sm">
+                                                        <i class="fa fa-trash"></i>Delete </button>
+                                                </form>
+                                                <!--<a th:action="@{'/plan/' + ${plan.id}}" class="btn btn-white btn-sm" th:method="delete"><i class="fa fa-pencil"></i> Delete </a>-->
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </content>
+</th:block>
+
+<!--</th:block>-->
+
+<th:block th:replace="fragments/body_scripts" />
+
+<script src="../../static/js/content.js"
+        th:src="@{/js/content.js}"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function() {
+        $('.contact-box').each(function () {
+            animationHover(this, 'pulse');
+        });
+    });
+</script>
+</body>
+</html>

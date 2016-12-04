@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace = "fragments/head :: common_header(~{::title}, ~{::link})">
+    <title>Plan Detail</title>
+    <link href="../../static/css/style.css " th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="fixed-sidebar gray-bg">
+
+<th:block th:replace="fragments/layout :: common_content(~{::content})">
+    <content>
+            <div class="wrapper wrapper-content">
+                <div class="row animated fadeInRight">
+                    <div class="col-sm-4">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5 th:text=" '预约编号-' + ${plan.number}"></h5>
+                                <div class="ibox-tools">
+                                    <span class="label" th:classappend="${plan.status.id != 1}? 'label-primary' : 'label-danger'"
+                                          th:text="${plan.status}">Status</span>
+                                </div>
+
+                            </div>
+                            <div>
+                                <div class="ibox-content no-padding border-left-right">
+                                    <img alt="image" class="img-responsive" th:src="@{/img/profile_big.jpg}">
+                                </div>
+
+                                <div class="ibox-content profile-content">
+                                    <h4><strong th:text="${plan.supplier}">Supplier Message</strong></h4>
+                                    <p><i class="fa fa-map-marker"></i> 上海市闵行区绿地科技岛广场A座2606室 supplier address</p>
+                                    <h4>
+                                        车辆编号
+                                        </h4>
+                                    <p th:text="${plan.vehicle}">
+                                        Number
+                                    </p>
+                                    <h4>
+                                        User
+                                    </h4>
+                                    <p>
+                                        Name: User
+                                    </p>
+
+                                    <div class="user-button">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送消息</button>
+                                            </div>
+                                            <!--<div class="col-sm-6">-->
+                                                <!--<button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-coffee"></i> 赞助</button>-->
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Locations</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="detail.html#">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a href="detail.html#">选项1</a>
+                                        </li>
+                                        <li><a href="detail.html#">选项2</a>
+                                        </li>
+                                    </ul>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+
+                                <div>
+                                    <div class="feed-activity-list" th:if="!${#lists.isEmpty(plan.locations)}">
+
+                                        <div class="feed-element" th:each="location : ${plan.locations}">
+                                            <a  class="pull-left" th:href="@{'/location/' + ${location.id}}">
+                                                <img alt="image" class="img-circle" th:src="@{/img/a1.jpg}">
+                                            </a>
+                                            <div class="media-body" th:href="@{'/location/' + ${location.id}}">
+                                                <small class="pull-right text-navy" th:text="${location.warehouse}">Warehouse</small>
+                                                <strong th:text="'货位' + ${location.id} ">location</strong>
+                                                <br>
+                                                <small class="text-muted">54分钟</small>
+                                                <div class="actions">
+                                                    <!--<a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>-->
+                                                    <a class="btn btn-xs" th:classappend="${location.status.id == 1}? 'btn-primary' : 'btn-danger'"
+                                                        th:href="@{'/location/' + ${location.id}}">
+                                                        <i class="fa" th:classappend="${location.status.id == 1}? 'fa-battery-empty' : 'fa-battery-full'"
+                                                            th:text="${location.status} "></i> </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--<button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> 显示更多</button>-->
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </content>
+    </th:block>
+
+    <!-- 全局js -->
+    <th:block th:replace="fragments/body_scripts" />
+
+
+
+    <!-- 自定义js -->
+    <script src="../../static/js/content.js?v=1.0.0"></script>
+
+
+    <!-- Peity -->
+    <script src="../../static/js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- Peity -->
+    <script src="../../static/js/demo/peity-demo.js"></script>
+
+    
+    
+
+</body>
+
+</html>

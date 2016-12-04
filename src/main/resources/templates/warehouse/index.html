@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common_header(~{::title}, ~{::link})">
+    <title> Home , this is index</title>
+    <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="fixed-sidebar gray-bg">
+
+    <th:block th:replace="fragments/navigation" />
+
+
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <th:block th:insert="fragments/rightNotify" />
+        </div>
+        <div class="row J_mainContent" id="content-main">
+
+            <div class="gray-bg">
+                <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="row">
+                        <ul class="nav nav-tabs">
+                            <span class="pull-right small text-muted">All 46 locations</span>
+                            <li th:class="${warehouse.Id == 1}? 'active' : ''"
+                                th:each="warehouse : ${warehouses}">
+                                <a th:data-toggle="tab" th:href="'#tab-' + ${warehouse.Id}" th:text="${warehouse.name}">
+                                    <i class="fa fa-location-arrow"></i>
+
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="hr-line-dashed"></div>
+                        <div class="tab-content">
+                            <div th:id="'tab-' + ${warehouse.Id}" class="tab-pane" th:classappend="${warehouse.Id == 1}? 'active' : null" th:each="warehouse : ${warehouses}">
+                                <div class="row" >
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3" th:each="location : ${warehouse.locations}">
+                                            <a href="../location/show.html" th:href="@{'/location/' + ${location.id}}">
+                                                <div class="widget navy-bg p-lg text-center">
+                                                    <div class="m-b-md">
+                                                        <i class="fa fa-4x"
+                                                           th:classappend="${location.status.id == 1}?'fa-battery-empty':'fa-battery-full'">
+
+                                                        </i>
+
+                                                        <span th:class="${location.status.id == 1}? 'badge' : 'badge-info'"
+                                                              th:text="${location.status}">
+                                                        </span>
+                                                        <h1 class="m-lg" th:text="${location.id}"></h1>
+                                                        <small th:text="货位编号"></small>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--<div class="file-box" th:each="location : ${warehouse.locations}">-->
+                                            <!--<div class="file">-->
+                                                <!--<a href="../location/show.html" th:href="@{'/location/' + ${location.id}}">-->
+                                                    <!--<span class="corner"></span>-->
+                                                    <!--<div class="image">-->
+                                                        <!--<img alt="image" class="img-responsive" th:src="@{/img/p2.jpg}">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="file-name" th:text="${location.id}">-->
+                                                        <!--<br/>-->
+                                                    <!--</div>-->
+                                                    <!--&lt;!&ndash;<div class="col-sm-4">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<div class="text-center">&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<img alt="image" class="img-circle m-t-xs img-responsive" src="img/a2.jpg">&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<div class="m-t-xs font-bold" th:text="${location.id}">LocationId</div>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="col-sm-8">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<h3 th:text="${location.vehicleNum}"><strong>Current Vehicle</strong></h3>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<p th:text="${location.status}"><i class="fa fa-map-marker"></i>Status</p>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<address>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<strong>Supplier, Name.</strong><br>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;E-mail:xxx@baidu.com<br>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<abbr title="Phone">Tel:</abbr> (123) 456-7890&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;location detail msg:<a href="">http://location.com/xx-id</a><br>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;</address>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="clearfix"></div>&ndash;&gt;-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="fragments/body_scripts" />
+
+
+    <script src="../../static/js/content.js"
+            th:src="@{/js/content.js}"></script>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $('.contact-box').each(function () {
+                animationHover(this, 'pulse');
+            });
+        });
+    </script>
+</body>
+</html>

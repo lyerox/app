@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common_header(~{::title}, ~{::link})">
+    <title>Details of Location's Status </title>
+    <link href="../../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="../../static/css/plugins/switchery/switchery.css" th:href="@{/css/plugins/switchery/switchery.css}" rel="stylesheet">
+</head>
+
+<body class="fixed-sidebar gray-bg">
+
+        <th:block th:replace="fragments/navigation" />
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <th:block th:insert="fragments/rightNotify" />
+            </div>
+            <div class="row J_mainContent" id="content-main">
+                <div class="gray-bg">
+                    <div class="wrapper wrapper-content animated fadeInUp">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5 th:text="${location.id} + '号货位'"></h5>
+                                        <div class="col-sm-2">
+                                            <span th:class="${location.status.id == 1}? 'badge' : 'badge-warning'" th:text="${location.status}">空</span>
+                                        </div>
+                                        <!--<div class="ibox-tools">-->
+                                            <!--<a href="plan.html" class="btn btn-primary btn-xs">New Plan</a>-->
+                                         <!--</div>-->
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="row m-b-sm m-t-sm">
+                                            <div class="col-md-1">
+                                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm">
+                                                    <i class="fa fa-refresh"></i>预约列表
+                                                </button>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <div class="input-group">
+                                                    <input type="text" placeholder="input plan series number" class="input-sm form-control">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-sm btn-primary">Search</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!--<div class="col-md-1">-->
+                                                <!--<button type="button" id="loading-example-btn" class="btn btn-primary btn-sm">-->
+                                                    <!--<i class="fa fa-check" th:text="${location.status}"></i>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                        </div>
+                                        <div class="plan-list" th:if="!${#lists.isEmpty(plans)}">
+                                            <table class="table table-hover">
+                                                <tbody>
+                                                <tr th:each="plan : ${plans}">
+
+                                                    <td class="plan-status">
+                                                        <span class="label" th:classappend="${plan.status.id == 1} ? 'label-primary' : 'label-dager'" th:text="${plan.status}">Status</span>
+                                                        <!--<small th:text="预约"></small>-->
+                                                    </td>
+                                                    <td class="plan-title">
+                                                        <a th:href="@{'/plan/' + ${plan.id}}" th:text="${plan.number}">Plan number</a>
+                                                        <br/>
+                                                        <small th:text="预约编号"></small>
+                                                    </td>
+                                                    <td class="plan-vehicle">
+                                                        <a href="vehicle.html" th:text="${plan.vehicle}">Vehicle number</a>
+                                                        <br/>
+                                                        <small th:text="${plan.vehicle.party}"></small>
+                                                    </td>
+                                                    <td class="plan-completion">
+                                                        <small th:text="进度">How much time used</small>
+                                                        <div class="progress progress-mini">
+                                                            <div style="width: 80%" class="progress-bar">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <!--<td class="plan-cargo">-->
+                                                        <!--<a href="projects.html"><img alt="image" class="img-circle" th:src="@{/img/a2.jpg}"></a>-->
+                                                        <!--<a href="projects.html"><img alt="image" class="img-circle" src="../../static/img/a3.jpg"></a>-->
+                                                        <!--<a href="projects.html"><img alt="image" class="img-circle" src="../../static/img/a1.jpg"></a>-->
+                                                        <!--<a href="projects.html"><img alt="image" class="img-circle" src="../../static/img/a7.jpg"></a>-->
+                                                    <!--</td>-->
+                                                    <td class="plan-actions">
+                                                        <a href="projects.html#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
+                                                        <a href="projects.html#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 编辑 </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="plan-list" th:if="${#lists.isEmpty(plans)}">
+                                            <strong>预约列表等待中 ... </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- 全局js -->
+    <th:block th:replace="fragments/body_scripts" />
+
+
+    <!-- 自定义js -->
+        <script src="../../static/js/content.js"
+            th:src="@{/js/content.js}"></script>
+
+        <!--<script src="../../static/js/plugins/chosen/chosen.jquery.js"-->
+            <!--th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>-->
+        <!--<script src="../../static/js/plugins/iCheck/icheck.min.js"-->
+            <!--th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>-->
+
+        <script src="../../static/js/plugins/switchery/switchery.js"
+            th:src="@{/js/plugins/switchery/switchery.js}"></script>
+    <!--refresh function btn-->
+        <script>
+            $(document).ready(function(){
+
+                $('#loading-example-btn').click(function () {
+                    btn = $(this);
+                    simpleLoad(btn, true)
+
+                    // Ajax example
+        //                $.ajax().always(function () {
+        //                    simpleLoad($(this), false)
+        //                });
+
+                    simpleLoad(btn, false)
+                });
+            });
+
+            function simpleLoad(btn, state) {
+                if (state) {
+                    btn.children().addClass('fa-spin');
+                    btn.contents().last().replaceWith(" Loading");
+                } else {
+                    setTimeout(function () {
+                        btn.children().removeClass('fa-spin');
+                        btn.contents().last().replaceWith(" Refresh");
+                    }, 2000);
+                }
+            }
+        </script>
+
+
+
+</body>
+</html>

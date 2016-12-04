@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: common_header(~{::title}, ~{::link})">
+    <title>New plan</title>
+    <link href="../../static/css/style.css" th:href="@{/css/style.css}"  rel="stylesheet">
+</head>
+
+<body class="fixed-sidebar gray-bg">
+<th:block th:replace="fragments/layout :: common_content(~{::content})">
+    <content>
+        <div class="gray-bg">
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>所有表单元素
+                                    <!--<small>包括自定义样式的复选和单选按钮</small>-->
+                                </h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <form method="new.html" th:action="@{/plan/new}" class="form-horizontal" th:object="${plan}" method="post">
+                                    <div class="hr-line-dashed"></div>
+                                    <input type="hidden" th:field="*{id}" />
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">车辆编号:</label>
+
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static" th:text="">497915773@qq.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">User</label>
+
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static">某某</p>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Status
+                                            <br/>
+                                            <!--<small class="text-navy">普通Bootstrap元素</small>-->
+                                        </label>
+
+                                        <div class="col-sm-10">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios">选项1</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios">选项2</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Warehouse</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Warehouse 1</label>
+                                                    <select class="form-control m-b" name="account">
+                                                        <option>选项 1</option>
+                                                        <option>选项 2</option>
+                                                        <option>选项 3</option>
+                                                        <option>选项 4</option>
+                                                    </select>
+                                                </div>
+                                                    <!--<input type="text" placeholder=".col-md-3" class="form-control">-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-primary" type="submit">保存内容</button>
+                                            <button class="btn btn-white" type="submit">取消</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </content>
+
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="js/content.js?v=1.0.0"></script>
+
+    <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+    
+</th:block>
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<head th:fragment="common_header(title, links)" xmlns:th="http://www.thymeleaf.org">
+
+    <meta charset="UTF-8"/>
+
+    <title th:replace="${title}" > Common Head Title</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link rel="shortcut icon" href="../../static/favicon.ico">
+    <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+    <link href="../../static/css/animate.css" th:href="@{/css/animate.css}"  rel="stylesheet">
+
+    <!--customise links-->
+    <th:block th:replace="${links}" />
+</head>
